@@ -1,0 +1,341 @@
+html {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    display: inline-block;
+    text-align: center;
+}
+
+body {
+    background-image: url(./images/Picture1.jpg);
+    margin: 0;
+    width: 100%;
+}
+
+.topnav {
+    overflow: hidden;
+    background-color: rgba(0,0,0,0.5);;
+    color: white;
+    font-size: 1rem;
+    padding: 10px;
+}
+
+.content {
+    padding: 20px;
+}
+
+.card {
+    color: deepskyblue;
+    background-color: rgba(0,0,0,0.5);
+    box-shadow: 2px 2px 12px 1px rgba(140,140,140,.5);
+    padding: 5%;
+}
+
+.cards {
+    max-width: 800px;
+    margin: 0 auto;
+    margin-bottom: 10px;
+    display: grid;
+    grid-gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 2fr));
+}
+
+.center{
+    height: 370px;
+    margin-top: 100px;
+    margin-bottom: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 400px;
+    background-color: rgba(0,0,0,0.5) !important;
+    }
+
+.reading {
+    color: darkorange;
+    font-size: 1.4rem;
+}
+
+.date-time{
+    font-size: 0.8rem;
+    color: #1282A2;
+}
+
+.login_btn{
+    color: black;
+    background-color: #FFC312;
+    width: 100px;
+    }
+    
+    .login_btn:hover{
+    color: black;
+    background-color: white;
+    }
+
+    .float-right {
+        float: right!important;
+    }
+
+    .margin{
+        border: 1px solid rgba(0,0,0,0.5);
+        margin-bottom: 1rem;
+        border-radius: 10px;
+
+      }
+      .marginicons{
+        margin-right: -1px;
+        display: flex;
+      }
+
+      .input-group-prepend {
+        width: 50px;
+        background-color: #FFC312;
+        color: black;
+        border:0 !important;
+        }
+        
+        input:focus{
+        outline: 0 0 0 0  !important;
+        box-shadow: 0 0 0 0 !important;
+        
+        }
+
+button {
+    background-color: #049faa;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+button:hover {
+   opacity: 0.8;
+}
+.deletebtn{
+    background-color: #c52c2c;
+}
+
+.form-elements-container{
+    padding: 16px;
+    width: 250px;
+    margin: 0 auto;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+.colorsetting{
+    color: white;
+}
+
+.bgcolor{
+    background-color: transparent;
+}
+
+.carousel-inner>.item{
+    -webkit-transition: -webkit-transform .5s ease-in-out;
+    -o-transition: -o-transform .5s ease-in-out;
+    transition: transform .5s ease-in-out;
+  }
+  
+  .carousel-item.active {
+      display: flex;
+  }
+  
+  
+  .container {
+      background: rgba(0,0,0,0.5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      overflow: hidden;
+      text-align: center;
+      width: 280px;
+      height: 170px;
+      margin: auto;
+      border-radius: 10px;
+  }
+  
+  .container h3 {
+      color: #F0F0F0;
+      margin: 0 0 25px;
+      position: relative;
+      z-index: 2;
+  }
+  
+  .checkbox-container {
+      display: inline-block;
+      position: relative;
+  }
+  
+  .checkbox-container label {
+      background-color: #aaa;
+      border: 1px solid #fff;
+      border-radius: 20px;
+      display: inline-block;
+      position: relative;
+      transition: all 0.3s ease-out;
+      width: 45px;
+      height: 25px;
+      z-index: 2;
+  }
+  .checkbox-container label::after {
+      content: ' ';
+      background-color: #fff;
+      border-radius: 50%;
+      position: absolute;
+      top: 1.5px;
+      left: 1px;
+      transform: translateX(0);
+      transition: transform 0.3s linear;
+      width: 20px;
+      height: 20px;
+      z-index: 3;
+  }
+  
+  .checkbox-container input {
+      visibility: hidden;
+      position: absolute;
+      z-index: 2;
+  }
+  
+  .checkbox-container input:checked + label + .active-circle {
+      transform: translate(-50%, -50%) scale(15);
+  }
+  
+  .checkbox-container input:checked + label::after {
+      transform: translateX(calc(100% + 0.5px));
+  }
+  
+  .active-circle {
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(calc(-50% - 10px), calc(-50% - 2px)) scale(0);
+      transition: transform 0.4s ease-out;
+      width: 30px;
+      height: 30px;
+      z-index: 1;
+  }
+  
+  .checkbox-container.elec .active-circle,
+  .checkbox-container.elec input:checked + label {
+      background-color: #FFC312;
+  }
+  
+  .checkbox-container.light-bulb .active-circle,
+  .checkbox-container.light-bulb input:checked + label {
+      background-color: #FFC312;
+  }
+  
+  .checkbox-container.fan .active-circle,
+  .checkbox-container.fan input:checked + label {
+      background-color: #FFC312;
+  }
+  
+  .checkbox-container.heater .active-circle,
+  .checkbox-container.heater input:checked + label {
+      background-color: #FFC312;
+  }
+  
+  .checkbox-container.door .active-circle,
+  .checkbox-container.door input:checked + label {
+      background-color: #735DD0;
+  }
+
+  .new-center {
+    margin: auto;
+    border: 3px solid #73AD21;
+    padding: 10px;
+  }
+
+table {
+    width: 100%;
+    text-align: center;
+    font-size: 0.8rem;
+}   
+tr, td {
+    padding: 0.25rem;
+}
+tr:nth-child(even) {
+    background-color: #f2f2f2
+}
+tr:hover {
+    background-color: #ddd;
+}
+th {
+    position: sticky;
+    top: 0;
+    background-color: #50b8b4;
+    color: white;
+}
+
+/* The Modal (background) */
+.modal {
+    display: none; /* Hidden by default */
+    position: fixed; /* Stay in place */
+    z-index: 1; /* Sit on top */
+    left: 0;
+    top: 0;
+    width: 100%; /* Full width */
+    height: 100%; /* Full height */
+    overflow: auto; /* Enable scroll if needed */
+    background-color: #474e5d;
+    padding-top: 50px;
+}
+  
+/* Modal Content/Box */
+.modal-content {
+    background-color: #fefefe;
+    margin: 5% auto 15% auto; /* 5% from the top, 15% from the bottom and centered */
+    border: 1px solid #888;
+    width: 80%; /* Could be more or less, depending on screen size */
+}
+  
+/* Style the horizontal ruler */
+hr {
+    border: 1px solid #f1f1f1;
+    margin-bottom: 25px;
+}
+
+/* The Modal Close Button (x) */
+.close {
+    position: absolute;
+    right: 35px;
+    top: 15px;
+    font-size: 40px;
+    font-weight: bold;
+    color: #f1f1f1;
+}
+
+.close:hover,
+.close:focus {
+    color: #f44336;
+    cursor: pointer;
+}
+
+/* Clear floats */
+.clearfix::after {
+    content: "";
+    clear: both;
+    display: table;
+}
+
+.login_btn{
+    color: black;
+    background-color: #FFC312;
+    width: 100px;
+    }
+
+/* Change styles for cancel button and delete button on extra small screens */
+@media screen and (max-width: 300px) {
+    .cancelbtn, .deletebtn {
+        width: 100%;
+    }
+}

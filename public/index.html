@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>SMART-HOME</title>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-app.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/2.9.2/umd/popper.min.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-auth.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.8.1/firebase-database.js"></script>
+    <script src="https://kit.fontawesome.com/6b36bd331a.js" crossorigin="anonymous"></script>
+    <script>
+      const firebaseConfig = {
+        apiKey: "AIzaSyBEqdsa5MIMoWMJT7Ide7JcDXUZ5T3W_SE",
+        authDomain: "realtime-data-transfer.firebaseapp.com",
+        databaseURL: "https://realtime-data-transfer-default-rtdb.firebaseio.com",
+        projectId: "realtime-data-transfer",
+        storageBucket: "realtime-data-transfer.appspot.com",
+        messagingSenderId: "709403643165",
+        appId: "1:709403643165:web:8084539cb32668f4ec25f4"
+      };
+      firebase.initializeApp(firebaseConfig);
+      const auth = firebase.auth();
+      const db = firebase.database();
+    </script>
+        <script>
+          function hometab(){
+            const navElement = document.querySelector('#mainavbar');
+            const contentElement = document.querySelector("#content-sign-in");
+
+            contentElement.style.display = 'none';
+            navElement.style.display = 'none';
+          }
+        </script>
+    <script src="https://code.highcharts.com/highcharts.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.1.7/all/gauge.min.js"></script>
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="stylesheet" type="text/css" href="style.css">
+  </head>
+  <body style="background-attachment: fixed;">
+  <nav class="navbar navbar-expand-lg" style="display: block; background-color: transparent; color: white;" id="mainavbar">
+    <div class="container-fluid" style="padding-left: 70%; position: fixed; top: 0;">
+      <button onclick="hometab()" class="colorsetting" href="/" style="background-color: transparent;" id="logout-link">Log Out</button>
+      <button style="background-color: azure;" class="navbar-toggler navbar-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link colorsetting" href="#">New User</a>
+          </li>
+          <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle colorsetting" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              Menu
+            </a>
+            <ul class="dropdown-menu bgcolor" aria-labelledby="navbarDropdownMenuLink">
+              <li><a id="chngPass" onclick="passForm()" class="dropdown-item colorsetting" href="#">change Main Door Key</a></li>
+              <li><a class="dropdown-item colorsetting" href="#">About</a></li>
+              <li><a class="dropdown-item colorsetting" href="#">Help</a></li>
+              <li><a class="dropdown-item colorsetting" href="#">Contact</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <form id="change-Pass" style="display: none; padding-top: 200px;">
+    <label for="psw" style="color: dodgerblue;"><b>new door key</b></label>
+    <input type="password" placeholder="Enter new key" name="psw" value="value" required>
+    <button type="submit" class="login_btn">set</button>
+  </form>
+    <div class="topnav" style="padding-left: 5%; padding-top: 80px;">
+      <table cellspacing = "10" style="width: auto;">
+        <tr>
+          <td>
+            <i class="fa-solid fa-house-signal fa-2xl"></i>
+          </td>
+          <td>
+            <h1>Smart Home</h1>
+          </td>
+        </tr>
+      </table>
+    </div>
+    <div class="center margin" style="display: none;" id="theblurthing">
+      <div class="card-body">
+      <form id="login-form" style="display: none;">
+        <div class="form-elements-container">
+          <div class="signincolor">
+            <h3>SignIn</h3>
+          </div>
+          <div class="input-group form-group">
+          <input type="text" class="form-control margin" placeholder="username" id="input-email" required>
+          </div>  
+          <div class="input-group form-group">
+          <input type="password" class="form-control margin" placeholder="password" id="input-password" required>
+          </div>  
+          <button class="login_btn form-group btn float-right" type="submit" id="login-button">Login</button>
+          <p id="error-message" style="color:red;"></p>
+        </div>
+      </form>
+    </div>
+    </div>
+    <div class="content-sign-in" id="content-sign-in" style="display: none;">
+      <p style="color: white; font-size:x-large;"><span class ="date-time">Last update: <span id="lastUpdate"></span></span></p>
+      <div id="cards-div">
+        <div class="cards">
+          <div class="card">
+            <p><i class="fas fa-thermometer-half" style="color:#059e8a;"></i> TEMPERATURE</p>
+            <p><span class="reading"><span id="temp"></span> &deg;C</span></p>
+          </div>
+          <div class="card">
+            <p><i class="fas fa-tint" style="color:#00add6;"></i> HUMIDITY</p>
+            <p><span class="reading"><span id="hum"></span> &percnt;</span></p>
+          </div>
+          <div class="card">
+            <p><i class="fas fa-angle-double-down" style="color:#e1e437;"></i> AIR QUALITY </p>
+            <p><span class="reading"><span id="co2"></span> ppm</span></p>
+          </div>
+        </div>
+      </div>
+
+      <div id="carouselExampleCaptions" style="padding-top: 10%;" class="carousel slide" data-bs-ride="carousel">
+        <div>
+          <div>
+         <div class="carousel-inner" style="height: 170px;">
+           <div class="carousel-item active">
+      
+                 <div class="container mkrsponsv">
+                   <h3>light control!</h3>
+                   <div class="checkbox-container light-bulb">
+                     <input class ="lcontrol" type="checkbox" checked id="toggle" checked />
+                     <label for="toggle"></label>
+                     <div class="active-circle"></div>
+                   </div>
+                 </div>
+                 <div class="container mkrsponsv">
+                   <h3>fan control!</h3>
+                   <div class="checkbox-container fan">
+                     <input class ="fcontrol" type="checkbox" checked id="toggle1" checked />
+                     <label for="toggle1"></label>
+                     <div class="active-circle"></div>
+                   </div>
+                 </div>
+            
+                </div>
+           <div class="carousel-item">
+            <div class="container mkrsponsv">
+              <h3>heater control!</h3>
+              <div class="checkbox-container heater">
+                <input class ="hcontrol" type="checkbox" checked id="toggle2" checked/>
+                <label for="toggle2"></label>
+                <div class="active-circle"></div>
+              </div>
+            </div>
+             <div class="container mkrsponsv">
+               <h3>door lock control!</h3>
+               <div class="checkbox-container door">
+                 <input class ="dcontrol" type="checkbox" checked id="toggle3" checked/>
+                 <label for="toggle3"></label>
+                 <div class="active-circle"></div>
+               </div>
+             </div>
+           </div>
+       <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="prev">
+         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Previous</span>
+       </button>
+       <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide="next">
+         <span class="carousel-control-next-icon" aria-hidden="true"></span>
+         <span class="visually-hidden">Next</span>
+       </button>      
+      
+       </div>
+       <div class="carousel-indicators" style="padding: 18px; position: relative;">
+         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="1" aria-label="Slide 2"></button>
+         <button type="button" data-bs-target="#carouselExampleCaptions" data-bs-slide-to="2" aria-label="Slide 3"></button>
+       </div>
+       </div>
+      </div>
+       </div>
+      <div id ="gauges-div">
+        <div class="cards">
+          <div class="card">
+            <canvas id="gauge-temperature"></canvas>
+          </div>
+          <div class="card">
+            <canvas id="gauge-humidity"></canvas>
+          </div>
+        </div>
+      </div>
+
+      <div id="charts-div" style="display:none">
+        <div>
+          <p style="color: #DFF6FF;"> ENTER TIME YOU WANT THE DATA DISPLAYED FOR IN MINUTES: <input type="number" id="charts-range"></p>
+        </div>
+        <!--power-CHART-->
+        <div class="cards">
+          <div class="card">
+            <p><i style="color:#059e8a;"></i> POWER CONSUMPTION CHART</p>
+            <div id="chart-power" class="chart-container"></div>
+          </div>
+        </div>
+        <!--water-v-CHART-->
+        <div class="cards">
+          <div class="card">
+            <p><i class="fas fa-tint" style="color:#00add6;"></i> WATER CONSUMPTION CHART</p>
+            <div id="chart-water" class="chart-container"></div>
+          </div>
+        </div>
+      </div>
+
+    <p>
+      <button id="view-data-button">View all data</button>
+      <button id="hide-data-button" style= "display:none;">Hide data</button>
+    </p>
+    <div id="delete-modal" class="modal" sytle="display:none">
+      <span onclick = "document.getElementById('delete-modal').style.display='none'" class="close" title="Close Modal">×</span>
+      <form id= "delete-data-form" class="modal-content" action="/">
+        <div class="container">
+          <h1>Delete Data</h1>
+          <p>Are you sure you want to delete all data from database?</p>
+          <div class="clearfix">
+            <button type="button" onclick="document.getElementById('delete-modal').style.display='none'" class="cancelbtn">Cancel</button>
+            <button type="submit" onclick="document.getElementById('delete-modal').style.display='none'" class="deletebtn">Delete</button>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div class ="cards">
+      <div class="card" id="table-container" style= "display:none;">
+        <table id="readings-table">
+            <tr id="theader">
+              <th>Timestamp</th>
+              <th>POWER (WATT)</th>
+              <th>WATER (V)</th>
+            </tr>
+            <tbody id="tbody">
+            </tbody>
+        </table>
+        <p><button id="load-data" style= "display:none;">More results...</button></p>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+          const passwordForm = document.querySelector('#change-Pass');
+    function passForm(){
+      passwordForm.style.display='block';}
+
+
+
+      passwordForm.addEventListener('submit', (e) => {
+        const key = passwordForm['change-Pass'].value;
+        var newKey={
+         newDoorKey: key
+       }
+        firebase.database().ref('key').set(newKey);
+        passwordForm.style.display='none';
+            console.log(key);
+        })
+
+    var lStatus;
+    var fStatus;
+
+    var dStatus;
+  
+    var hStatus;
+    const lightControl = document.querySelector('.lcontrol');
+    const fanControl = document.querySelector('.fcontrol');
+    const heaterControl = document.querySelector('.hcontrol');
+    const doorControl = document.querySelector('.dcontrol');
+    
+    lightControl.addEventListener('input', controlLight);
+    fanControl.addEventListener('input', controlFan);
+    heaterControl.addEventListener('input', controlHeater);
+    doorControl.addEventListener('input', controlDoor);
+    
+    function controlLight() {
+       if(lightControl.checked){  lStatus=1;}
+       else {lStatus=0;}
+       var lSObj = {
+      lightStat: lStatus
+    }
+       firebase.database().ref('lampStatus').set(lSObj);
+     console.log("lStatus");
+     console.log(lStatus);
+    // console.log(lStatus);
+    }
+    function controlFan() {
+      if(fanControl.checked){  fStatus=1;}
+       else {fStatus=0; }   
+       var fSObj = {
+      fanStat: fStatus
+    } 
+       firebase.database().ref('fanStatus').set(fSObj);
+        console.log("fStatus: ");
+    console.log(fStatus);
+    }function controlHeater() {
+      if(heaterControl.checked){  hStatus=1;}
+       else {hStatus=0; } 
+       var hSObj = {
+      heaterStat: hStatus
+    }
+       firebase.database().ref('heaterStatus').set(hSObj);
+       console.log("hStatus: ");
+    console.log(hStatus);
+    }function controlDoor() {
+      if(doorControl.checked){  dStatus=1;}
+       else {dStatus=0; }
+       var dSObj = {
+      doorStat: dStatus}
+       firebase.database().ref('doorStatus').set(dSObj);
+       console.log("dStatus: ");
+    console.log(dStatus);    }
+
+        </script>
+
+    <!--INCLUDE JS FILES-->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
+    <script src="scripts/auth.js"></script>
+    <script src="scripts/charts-definition.js"></script>
+    <script src="scripts/gauges-definition.js"></script>
+    <script src="scripts/index.js"></script>
+
+  </body>
+
+</html>
